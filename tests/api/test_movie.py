@@ -53,6 +53,12 @@ def test_update_movie(authenticated_api_manager, created_movie):
     assert response_data["name"] == new_movie_data["name"]
     assert response_data["price"] == new_movie_data["price"]
 
+    get_response = authenticated_api_manager.movies_api.get_movie_by_id(movie_id)
+    get_response_data = get_response.json()
+
+    assert get_response_data["name"] == new_movie_data["name"]
+    assert get_response_data["price"] == new_movie_data["price"]
+
 
 @pytest.mark.api
 @pytest.mark.regression
