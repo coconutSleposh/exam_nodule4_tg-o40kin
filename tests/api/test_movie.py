@@ -1,6 +1,7 @@
 import pytest
 from data.movie import MovieData
 
+
 @pytest.mark.api
 @pytest.mark.smoke
 def test_create_movie(authenticated_api_manager):
@@ -14,6 +15,7 @@ def test_create_movie(authenticated_api_manager):
 
     authenticated_api_manager.movies_api.delete_movie(response_data["id"])
 
+
 @pytest.mark.api
 @pytest.mark.smoke
 def test_get_movie_by_id(authenticated_api_manager, created_movie):
@@ -26,6 +28,7 @@ def test_get_movie_by_id(authenticated_api_manager, created_movie):
     assert response_data["id"] == movie_id
     assert response_data["name"] == movie_name
 
+
 @pytest.mark.api
 def test_get_movies_with_filter(authenticated_api_manager):
     params = {"genreId": 9, "pageSize": 5}
@@ -36,6 +39,7 @@ def test_get_movies_with_filter(authenticated_api_manager):
     assert len(response_data["movies"]) <= 5
 
     assert all(m["genreId"] == 9 for m in response_data["movies"])
+
 
 @pytest.mark.api
 @pytest.mark.regression
@@ -49,6 +53,7 @@ def test_update_movie(authenticated_api_manager, created_movie):
     assert response_data["name"] == new_movie_data["name"]
     assert response_data["price"] == new_movie_data["price"]
 
+
 @pytest.mark.api
 @pytest.mark.regression
 def test_delete_movie(authenticated_api_manager):
@@ -58,6 +63,7 @@ def test_delete_movie(authenticated_api_manager):
     authenticated_api_manager.movies_api.delete_movie(movie_id)
     authenticated_api_manager.movies_api.get_movie_by_id(movie_id, expected_status=404)
 
+
 @pytest.mark.api
 @pytest.mark.regression
 def test_create_movie_without_name(authenticated_api_manager):
@@ -66,7 +72,28 @@ def test_create_movie_without_name(authenticated_api_manager):
 
     authenticated_api_manager.movies_api.create_movie(movie_data, expected_status=400)
 
+
 @pytest.mark.api
 @pytest.mark.regression
 def test_get_nonexistent_movie(authenticated_api_manager):
     authenticated_api_manager.movies_api.get_movie_by_id(9999999, expected_status=404)
+
+
+@pytest.mark.api
+@pytest.mark.regression
+def test_update_nonexistent_movie(authenticated_api_manager):
+    new_movie_data = MovieData.create_movie_payload()
+    authenticated_api_manager.movies_api.update_movie(
+        9999999,
+        new_movie_data,
+        expected_status=404
+    )
+
+
+@pytest.mark.api
+@pytest.mark.regression
+def test_delete_nonexistent_movie(authenticated_api_manager):
+    authenticated_api_manager.movies_api.delete_movie(
+        9999999,
+        expected_status=404
+    )

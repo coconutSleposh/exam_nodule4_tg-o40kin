@@ -1,6 +1,7 @@
 from custom_requester.custom_requester import CustomRequester
 from config.base_urls import AUTH_BASE_URL
 
+
 class AuthApi(CustomRequester):
     def __init__(self, session):
         super().__init__(session=session, base_url=AUTH_BASE_URL)

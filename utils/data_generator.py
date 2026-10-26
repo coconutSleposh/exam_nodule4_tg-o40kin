@@ -1,5 +1,6 @@
 from faker import Faker
 
+
 class DataGenerator:
     fake = Faker(locale='ru_RU')
 
