@@ -43,3 +43,13 @@ class MoviesApi(CustomRequester):
             expected_status=expected,
             **kwargs
         )
+
+    def update_movie(self, movie_id, movie_data, **kwargs):
+        expected = kwargs.pop("expected_status", 200)
+        return self.send_request(
+            method="PATCH",
+            endpoint=f"/movies/{movie_id}",
+            data=movie_data,
+            expected_status=expected,
+            **kwargs
+        )

@@ -1,5 +1,4 @@
 from faker import Faker
-from utils.data_generator import DataGenerator
 
 fake = Faker(locale='ru_RU')
 class MovieData:
