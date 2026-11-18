@@ -1,5 +1,5 @@
-from clients.movie_api import MoviesApi
 from clients.auth_api import AuthApi
+from clients.movie_api import MoviesApi
 
 
 class ApiManager:
