@@ -13,7 +13,7 @@ from db_models.account_transaction_template import AccountTransactionTemplate
 def db_session():
     """Provide an isolated in-memory database for transaction tests."""
     engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
+    AccountTransactionTemplate.__table__.create(engine)
     with Session(engine) as session:
         yield session
     engine.dispose()
