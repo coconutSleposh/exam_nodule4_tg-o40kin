@@ -1,8 +1,22 @@
 from uuid import uuid4
 
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from db_models.base import Base
 
 from db_models.account_transaction_template import AccountTransactionTemplate
+
+
+@pytest.fixture
+def db_session():
+    """Provide an isolated in-memory database for transaction tests."""
+    engine = create_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        yield session
+    engine.dispose()
 
 
 def _transfer_money(session, from_user: str, to_user: str, amount: int) -> None:
