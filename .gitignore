@@ -4,6 +4,7 @@
 .DS_Store
 /venv/
 __pycache__/
+allure-results/
 *.db
 *.xlsx
 *.log
