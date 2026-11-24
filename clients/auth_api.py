@@ -11,5 +11,5 @@ class AuthApi(CustomRequester):
             method="POST",
             endpoint="/login",
             data={"email": username, "password": password},
-            expected_status=201
+            expected_status=200
         )

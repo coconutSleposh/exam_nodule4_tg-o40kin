@@ -1,4 +1,7 @@
 pytest
 requests
 faker
+pydantic
+python-dotenv
+psycopg2-binary
 SQLAlchemy
